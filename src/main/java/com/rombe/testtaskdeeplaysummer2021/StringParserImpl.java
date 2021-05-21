@@ -16,6 +16,10 @@ public class StringParserImpl implements StringParser {
 
     @Override
     public List<Integer> getResult(String input) {
+        if (input == null) {
+            return Collections.emptyList();
+        }
+
         final List<Integer> result = new LinkedList<>();
 
         Function<Integer, Integer> tempFun = i -> i;
