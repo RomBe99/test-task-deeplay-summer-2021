@@ -24,8 +24,18 @@ public class StringParserImplTest {
         Assertions.assertEquals(expectedResult, actualResult);
     }
 
+    @ParameterizedTest
+    @MethodSource("incorrectInputValues")
+    public void getResultWithIncorrectInputTest(String input, UnknownTokenException expectedException) {
+        final var actualException = Assertions
+                .assertThrows(UnknownTokenException.class, () -> parser.getResult(input));
+
+        Assertions.assertEquals(expectedException.getUnknownToken(), actualException.getUnknownToken());
+    }
+
     private static Stream<Arguments> correctInputValues() {
         return Stream.of(
+                Arguments.of(null, Collections.emptyList()),
                 Arguments.of("", Collections.emptyList()),
                 Arguments.of("iiisdoso", List.of(8, 64)),
                 Arguments.of("idsoiisdssdo", List.of(0, 80)),
@@ -33,6 +43,14 @@ public class StringParserImplTest {
                 Arguments.of("ioioioiodo", List.of(1, 2, 3, 4, 3)),
                 Arguments.of("dddoooiidoso", List.of(-3, -3, -3, -2, 4)),
                 Arguments.of("ddddsoddsdsdsoiiidoddo", List.of(16, 1445824576, 1445824578, 1445824576))
+        );
+    }
+
+    private static Stream<Arguments> incorrectInputValues() {
+        return Stream.of(
+                Arguments.of("asdfasd", new UnknownTokenException("a")),
+                Arguments.of("iiisdososp", new UnknownTokenException("p")),
+                Arguments.of("ddddsoddsdsd]soiiidoddo", new UnknownTokenException("]"))
         );
     }
 }
