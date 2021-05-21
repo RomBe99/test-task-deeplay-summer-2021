@@ -10,7 +10,11 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class StringParserImplTest {
-    private final StringParser parser = new StringParserImpl(0);
+    private final StringParser parser = new StringParserImpl(0, List.of(
+            new MathOperation<>("i", i -> i + 1),
+            new MathOperation<>("d", i -> i - 1),
+            new MathOperation<>("s", i -> i * i)
+    ));
 
     @ParameterizedTest
     @MethodSource("correctInputValues")

@@ -2,17 +2,16 @@ package com.rombe.testtaskdeeplaysummer2021;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class StringParserImpl implements StringParser {
-    private final Map<MathOperation, Function<Integer, Integer>> operations = Map.of(
-            MathOperation.INCREMENT, i -> i + 1,
-            MathOperation.DECREMENT, i -> i - 1,
-            MathOperation.SQUARE, i -> i * i
-    );
+    private final Map<String, Function<Integer, Integer>> operations;
     private final int startValue;
 
-    public StringParserImpl(int startValue) {
+    public StringParserImpl(final int startValue, final List<MathOperation<Integer, Integer>> operations) {
         this.startValue = startValue;
+        this.operations = operations.stream()
+                .collect(Collectors.toMap(MathOperation::getToken, MathOperation::getOperation));
     }
 
     @Override
@@ -28,11 +27,11 @@ public class StringParserImpl implements StringParser {
                 continue;
             }
 
-            final var currentOperation = Optional
-                    .ofNullable(MathOperation.of(String.valueOf(c)))
-                    .orElseThrow();
+            final String currentToken = String.valueOf(c);
 
-            tempFun = tempFun.andThen(operations.get(currentOperation));
+            tempFun = tempFun.andThen(
+                    Optional.ofNullable(operations.get(currentToken))
+                            .orElseThrow(() -> new UnknownTokenException(currentToken)));
         }
 
         return result;
