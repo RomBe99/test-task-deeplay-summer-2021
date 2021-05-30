@@ -1,4 +1,4 @@
-package com.rombe.testtaskdeeplaysummer2021;
+package com.rombe.testtaskdeeplaysummer2021.task1;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;

@@ -1,4 +1,4 @@
-package com.rombe.testtaskdeeplaysummer2021;
+package com.rombe.testtaskdeeplaysummer2021.task1;
 
 public class UnknownTokenException extends RuntimeException {
     private final String unknownToken;

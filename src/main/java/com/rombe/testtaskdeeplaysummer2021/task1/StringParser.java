@@ -1,4 +1,4 @@
-package com.rombe.testtaskdeeplaysummer2021;
+package com.rombe.testtaskdeeplaysummer2021.task1;
 
 import java.util.List;
 
