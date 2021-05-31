@@ -69,4 +69,4 @@ P|***W***|***P***|***P***
 В таблице приведена возможная интерпретация входных данных. Левая верхня клетка — это стартовая позиция, а правая нижняя
 — конечная. Жирным курсивом обозначен один из оптимальных маршрутов.
 
-**Сигнатура метода:** `public static int getResult(String fieldsMap, String raceOfCreature)` в классе `Solution`
+**Сигнатура метода:** `public static int getResult(String mapFields, String raceOfCreature)` в классе `Solution`
