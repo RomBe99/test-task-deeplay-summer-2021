@@ -1,20 +1,15 @@
 package com.rombe.testtaskdeeplaysummer2021.task2;
 
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Objects;
 
-public enum MapFieldType {
-    SWAMP("S"),
-    WATER("W"),
-    BUSHES("T"),
-    PLAIN("P");
+public class MapFieldType {
+    private String value;
 
-    private final String value;
-    private static final Map<String, MapFieldType> valuesToMapFieldType = Stream.of(values())
-            .collect(Collectors.toMap(MapFieldType::getValue, mapFieldType -> mapFieldType));
+    public MapFieldType(String value) {
+        setValue(value);
+    }
 
-    MapFieldType(String value) {
+    public void setValue(String value) {
         this.value = value;
     }
 
@@ -22,7 +17,16 @@ public enum MapFieldType {
         return value;
     }
 
-    public static MapFieldType of(String value) {
-        return valuesToMapFieldType.get(value);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MapFieldType that = (MapFieldType) o;
+        return Objects.equals(value, that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 }
