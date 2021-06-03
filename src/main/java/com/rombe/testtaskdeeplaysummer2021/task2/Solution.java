@@ -45,15 +45,13 @@ public class Solution {
         final var creature = creatureRepository.getCreature(raceOfCreature);
 
         final var chars = mapFields.toCharArray();
-        final List<Double> weights = new ArrayList<>(linesCount * columnsCount);
+        final List<Double> weights = new ArrayList<>(mapFields.length());
 
-        for (int i = 0; i < linesCount; i++) {
-            for (int j = 0; j < columnsCount; j++) {
-                weights.add(creature
-                        .getCharacteristic(mapRepository
-                                .getByValue(String.valueOf(chars[i * columnsCount + j]))
-                                .orElseThrow(IllegalArgumentException::new)));
-            }
+        for (int i = 0; i < mapFields.length(); i++) {
+            weights.add(creature
+                    .getCharacteristic(mapRepository
+                            .getByValue(String.valueOf(chars[i]))
+                            .orElseThrow(IllegalArgumentException::new)));
         }
 
         return 0;
